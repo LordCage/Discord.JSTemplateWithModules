@@ -18,7 +18,7 @@ require('./util/eventLoader')(client);
 
 const token = config.token;
 
-// STOP ERRORS FROM SHOWING UP IN CONSOLE
+/* Uncomment this if you don't want any errors to show up in the console!
 process.on('uncaughtException', expection => {
     return;
 });
@@ -28,6 +28,7 @@ process.on('warning', warning => {
 process.on('unhandledRejection', rejection => {
     return;
 });
+*/
 
 // Don't touch this! This is basically the Reload command!
 var reload = (message, cmd) => {
