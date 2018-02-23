@@ -1,0 +1,12 @@
+{
+  "name": "Bot",
+  "version": "1.0.0",
+  "description": "Bot Template",
+  "main": "bot.js",
+  "author": "Kovacs Alex",
+  "license": "ISC",
+  "dependencies": {
+    "dblposter": "^1.0.3",
+    "discord.js": "^11.3.0",
+  }
+}
