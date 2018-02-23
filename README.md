@@ -1,5 +1,3 @@
-# Discord.JS-Bot-with-Modules-Template
-
 To learn how to add commands to the bot I recommend you to watch [An Idiot's Guide](https://www.youtube.com/playlist?list=PLR2_rarYLHfg6ZJqq0WTMmI9uLcd7_GRO) on Discord.JS!<br>
 Look through all the comments so you don't miss out anything!
 
