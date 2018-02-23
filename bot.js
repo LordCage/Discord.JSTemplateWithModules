@@ -5,6 +5,7 @@ const config = require('./config.json');
 
 /*
 Discord Bots API
+Only use this if you want to transmit the guild size etc. to DiscordBotsList's API!
 const dbl = require("dblposter");
 
 const dblPoster = new dbl(`dbl api key`);
@@ -28,6 +29,7 @@ process.on('unhandledRejection', rejection => {
     return;
 });
 
+// Don't touch this! This is basically the Reload command!
 var reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
     try {
