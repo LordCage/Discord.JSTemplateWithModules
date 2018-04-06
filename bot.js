@@ -54,9 +54,13 @@ let reload = (message, cmd) => {
     },
     load = (message, cmd) => {
         try {
-            fs.rename(`./commands/unloaded/${cmd}.js`, `./commands/${cmd}.js`, () => {
-                let cmdFile = require('./commands/' + cmd); 
-            });
+            try {
+                fs.rename(`./commands/unloaded/${cmd}.js`, `./commands/${cmd}.js`, () => {
+                    let cmdFile = require('./commands/' + cmd); 
+                });
+            } catch (err) {
+                let cmdFile = require('./commands/' + cmd);
+            }
         } catch (error) {
             message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
                 response => response.delete(1000).catch(error => console.log(error))
