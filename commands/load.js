@@ -3,5 +3,5 @@ const main = require('../bot.js');
 exports.run = (client, message, args) => {
     if (message.author.id !== config.owner) return;
     let cmd = args.join(' ');
-    main.reload(message, cmd);
+    main.load(message, cmd);
 };
