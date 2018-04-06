@@ -1,12 +1,12 @@
 {
-  "name": "Bot",
+  "name": "djs-bot-template",
   "version": "1.0.0",
-  "description": "Bot Template",
+  "description": "A simple Discord.js bot template with module support.",
   "main": "bot.js",
   "author": "Kovacs Alex",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "dblposter": "^1.0.3",
-    "discord.js": "^11.3.0",
+    "discord.js": "^11.3.0"
   }
 }

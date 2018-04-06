@@ -1,3 +1,5 @@
-{ "token"  : "token",
-  "prefix" : "prefix"
+{ 
+  "token"  : "token",
+  "prefix" : "prefix",
+  "owner" : "owneridhere"
 }
