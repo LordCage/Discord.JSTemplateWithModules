@@ -1,17 +1,30 @@
 // We import discord.js so we can create a new Embed
 const Discord = require('discord.js');
+// Importing the prefix so we can use it bellow
+const { prefix } = require('../config.json');
+// FS will read the commands folder for us.
+const fs = require('fs');
 
 exports.run = (client, message, args) => {
 
-    if (!args[0]) {
-        /*
-            A list of your commands? Return? Do whatever you want here.
-        */
+    let command = args[0];
+    
+    if (!command) {
+        // Replace this if you want something else to show all the available commands
+        let commands = new Array();
+        fs.readdir('./commands', (err, files) => {
+            files.forEach(file => {
+                if (file.includes('.js')) {
+                    commands.push(file.replace('.js', ''))
+                }
+            });
+            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nFor details and such use ${prefix}help and the command name.`)
+        });
         return;
     }
 
     try {
-        let help = require(`./${args[0]}.js`).help;
+        let help = require(`./${command}.js`).help;
 
         let name = help.name || 'No name provided.';
         let description = help.description || 'No description provided.';
