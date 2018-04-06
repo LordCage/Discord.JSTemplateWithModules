@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client({ autoReconnect: true });
+const fs = require('fs');
 
 const config = require('./config.json');
 
@@ -46,13 +47,16 @@ let reload = (message, cmd) => {
     },
     unload = (message, cmd) => {
         delete require.cache[require.resolve('./commands/' + cmd)];
+        fs.rename(`./commands/${cmd}.js`, `./commands/unloaded/${cmd}.js`);
         message.channel.send(`Unloaded ${cmd} successfully!`).then(
             response => response.delete(1000).catch(error => console.log(error))
         ).catch(error => console.log(error));
     },
     load = (message, cmd) => {
         try {
-            let cmdFile = require('./commands/' + cmd);
+            fs.rename(`./commands/unloaded/${cmd}.js`, `./commands/${cmd}.js`, () => {
+                let cmdFile = require('./commands/' + cmd); 
+            });
         } catch (error) {
             message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
                 response => response.delete(1000).catch(error => console.log(error))
