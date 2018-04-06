@@ -4,3 +4,9 @@ exports.run = (client, message, args) => {
             msg.edit(`Pong!\nCurrent server latency: ${msg.createdTimestamp - message.createdTimestamp}ms!`)
         }).catch(err => message.channel.send(err))
 };
+
+exports.help = {
+    name: 'Ping',
+    description: 'Pong!',
+    usage: ''
+}

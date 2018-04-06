@@ -5,3 +5,9 @@ exports.run = (client, message, args) => {
     let cmd = args.join(' ');
     main.load(message, cmd);
 };
+
+exports.help = {
+    name: 'Load',
+    description: 'Load a command. Reserved to bot owner.',
+    usage: '<command-name>'
+}

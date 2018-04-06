@@ -5,3 +5,9 @@ exports.run = (client, message, args) => {
     let cmd = args.join(' ');
     main.unload(message, cmd);
 };
+
+exports.help = {
+    name: 'Unload',
+    description: 'Unload a command. Reserved to bot owner.',
+    usage: '<command-name>'
+}
