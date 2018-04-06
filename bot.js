@@ -31,7 +31,7 @@ process.on('unhandledRejection', rejection => {
 */
 
 // Don't touch these! They're basically utility commands.
-var reload = (message, cmd) => {
+let reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
     try {
         let cmdFile = require('./commands/' + cmd);
@@ -43,25 +43,25 @@ var reload = (message, cmd) => {
     message.channel.send(`Reloaded ${cmd} successfully!`).then(
         response => response.delete(1000).catch(error => console.log(error))
     ).catch(error => console.log(error));
-};
-var unload = (message, cmd) => {
-    delete require.cache[require.resolve('./commands/' + cmd)];
-    message.channel.send(`Unloaded ${cmd} successfully!`).then(
-        response => response.delete(1000).catch(error => console.log(error))
-    ).catch(error => console.log(error));
-};
-var load = (message, cmd) => {
-    try {
-        let cmdFile = require('./commands/' + cmd);
-    } catch (error) {
-        message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
+    },
+    unload = (message, cmd) => {
+        delete require.cache[require.resolve('./commands/' + cmd)];
+        message.channel.send(`Unloaded ${cmd} successfully!`).then(
             response => response.delete(1000).catch(error => console.log(error))
         ).catch(error => console.log(error));
-    }
-    message.channel.send(`Loaded ${cmd} successfully!`).then(
-        response => response.delete(1000).catch(error => console.log(error))
-    ).catch(error => console.log(error));
-};
+    },
+    load = (message, cmd) => {
+        try {
+            let cmdFile = require('./commands/' + cmd);
+        } catch (error) {
+            message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
+                response => response.delete(1000).catch(error => console.log(error))
+            ).catch(error => console.log(error));
+        }
+        message.channel.send(`Loaded ${cmd} successfully!`).then(
+            response => response.delete(1000).catch(error => console.log(error))
+        ).catch(error => console.log(error));
+    };  
 exports.reload = reload;
 exports.unload = unload;
 exports.load = load;
