@@ -62,7 +62,6 @@ let reload = (message, cmd) => {
     ).catch(error => console.log(error));
     },
     load = (message, cmd) => {
-        try {
             try {
                 let cmdFile = require('./commands/' + cmd);
             }
