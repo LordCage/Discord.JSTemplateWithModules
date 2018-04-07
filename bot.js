@@ -61,20 +61,9 @@ let reload = (message, cmd) => {
         response => response.delete(1000).catch(error => console.log(error))
     ).catch(error => console.log(error));
     },
-    unload = (message, cmd) => {
-        delete require.cache[require.resolve('./commands/' + cmd)];
-        fs.rename(`./commands/${cmd}.js`, `./commands/unloaded/${cmd}.js`);
-        message.channel.send(`Unloaded ${cmd} successfully!`).then(
-            response => response.delete(1000).catch(error => console.log(error))
-        ).catch(error => console.log(error));
-    },
     load = (message, cmd) => {
         try {
             try {
-                fs.rename(`./commands/unloaded/${cmd}.js`, `./commands/${cmd}.js`, () => {
-                    let cmdFile = require('./commands/' + cmd); 
-                });
-            } catch (err) {
                 let cmdFile = require('./commands/' + cmd);
             }
         } catch (error) {
@@ -87,7 +76,6 @@ let reload = (message, cmd) => {
         ).catch(error => console.log(error));
     };  
 exports.reload = reload;
-exports.unload = unload;
 exports.load = load;
 
 client.login(token);
