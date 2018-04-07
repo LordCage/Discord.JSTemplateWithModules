@@ -8,6 +8,7 @@ exports.conf = {
     name: 'load',
     description: 'Load a command. Reserved to bot owner.',
     aliases: [],
+    usage: '<command-name>',
 
     enabled: true,
     guildOnly: false,

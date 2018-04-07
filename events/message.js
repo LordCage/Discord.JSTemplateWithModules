@@ -26,7 +26,10 @@ module.exports = message => {
 
       // If the command is ownerOnly return;
       if (cmd.conf.ownerOnly && message.author.id !== config.owner) return message.channel.send('This command can only be used by the owner.')
-      
+      try {
       cmd.run(client, message, args);
+      } catch (err) {
+        message.channel.send(`Something went wrong...\n\`\`\`${err}\`\`\``)
+      }
     }
 };
