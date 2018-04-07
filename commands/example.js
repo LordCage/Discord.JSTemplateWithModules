@@ -3,8 +3,13 @@ exports.run = (client, message, args) => {
     
 };
 
-exports.help = {
+exports.conf = {
     name: 'example',
     description: '',
-    usage: ''
+    aliases: [],
+    usage: '',
+
+    enabled: false,
+    guildOnly: true,
+    ownerOnly: false
 }

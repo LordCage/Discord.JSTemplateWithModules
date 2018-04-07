@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client({ autoReconnect: true });
-const fs = require('fs');
 
 const config = require('./config.json');
+const fs = require('fs');
 
 /*
 Discord Bots API
@@ -30,6 +30,22 @@ process.on('unhandledRejection', rejection => {
     return;
 });
 */
+
+// Don't touch these! These set the commands and their aliases.
+client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection();
+
+fs.readdir('./commands/', (err, files) => {
+  if (err) console.error(err);
+  files.forEach(file => {
+    const cmd = require(`./commands/${file}`);
+    client.commands.set(cmd.conf.name, cmd);
+    cmd.conf.aliases.forEach(alias => {
+      client.aliases.set(alias, cmd.conf.name);
+    });
+  });
+});
+
 
 // Don't touch these! They're basically utility commands.
 let reload = (message, cmd) => {

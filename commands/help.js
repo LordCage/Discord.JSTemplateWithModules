@@ -24,7 +24,7 @@ exports.run = (client, message, args) => {
     }
 
     try {
-        let help = require(`./${command}.js`).help;
+        let help = require(`./${command}.js`).conf;
 
         let name = help.name || 'No name provided.';
         let description = help.description || 'No description provided.';
@@ -44,8 +44,13 @@ exports.run = (client, message, args) => {
 
 };
 
-exports.help = {
-    name: 'Help',
+exports.conf = {
+    name: 'help',
     description: 'Displays information about a command.',
-    usage: '<command-name>'
+    aliases: [],
+    usage: '<command-name>',
+    
+    enabled: true,
+    guildOnly: true,
+    ownerOnly: false
 }

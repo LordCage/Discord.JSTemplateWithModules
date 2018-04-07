@@ -1,13 +1,16 @@
-const config = require('../config.json');
 const main = require('../bot.js');
 exports.run = (client, message, args) => {
-    if (message.author.id !== config.owner) return;
     let cmd = args.join(' ');
     main.unload(message, cmd);
 };
 
-exports.help = {
-    name: 'Unload',
+exports.conf = {
+    name: 'unload',
     description: 'Unload a command. Reserved to bot owner.',
-    usage: '<command-name>'
+    aliases: [],
+    usage: '<command-name>',
+    
+    enabled: true,
+    guildOnly: false,
+    ownerOnly: false
 }
