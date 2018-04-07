@@ -29,7 +29,7 @@ exports.run = (client, message, args) => {
         let name = help.name || 'No name provided.';
         let description = help.description || 'No description provided.';
         let usage = help.usage || 'No usage provided.';
-        let aliases = help.aliases ? help.aliases.join(', ') : 'No aliases provided.';
+        let aliases = help.aliases.length > 1 ? help.aliases.join(', ') : 'No aliases provided.';
 
         const embed = new Discord.RichEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL)
