@@ -29,10 +29,11 @@ exports.run = (client, message, args) => {
         let name = help.name || 'No name provided.';
         let description = help.description || 'No description provided.';
         let usage = help.usage || 'No usage provided.';
+        let aliases = help.aliases ? help.aliases.join(', ') : 'No aliases provided.';
 
         const embed = new Discord.RichEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL)
-            .setDescription(`Name: **${name}**\nDescription: **${description}**\nUsage: **${usage}**`)
+            .setDescription(`Name: **${name}**\nDescription: **${description}**\nAliases: **${aliases}**\nUsage: **${usage}**`)
             .setFooter(`Help for command ${args[0]}`)
             .setColor(message.member.displayHexColor)
             .setTimestamp();
