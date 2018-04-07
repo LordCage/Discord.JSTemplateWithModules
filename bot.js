@@ -66,7 +66,7 @@ let reload = (message, cmd) => {
             try {
                 let cmdFile = require('./commands/' + cmd);
             }
-        } catch (error) {
+             catch (error) {
             message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
                 response => response.delete(1000).catch(error => console.log(error))
             ).catch(error => console.log(error));
