@@ -15,3 +15,6 @@ After this things, you are ready to add commands to it!
 **Don't forget to add in your token, prefix, and owner ID in the config.json file!**
 
 Why? Because some people are lazy, that's why :)
+
+
+Note: Some of the code was inspired by [York](https://github.com/YorkAARGH), the idiot himself. Show some support :)
