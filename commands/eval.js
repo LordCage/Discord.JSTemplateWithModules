@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
 
     if (!result || result.length < 1) return msg.edit('Something went wrong or the eval returned nothing.');
 
-    msg.edit(`**Output:** \`\`\`js\n${result}\`\`\`\n**Type:** \`\`\`${Capitalize(typeof result)}\`\`\`\n:stopwatch: ~${ms(new Date() - curDate, {long: true})}`)
+    msg.edit(`**Output:** \`\`\`js\n${result}\`\`\`\n**Type:** \`\`\`ts\n${Capitalize(typeof result)}\`\`\`\n:stopwatch: ~${ms(new Date() - curDate, {long: true})}`)
 };
 
 exports.conf = {
