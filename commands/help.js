@@ -22,7 +22,7 @@ exports.run = (client, message, args) => {
                     ownerCommands.push(file.replace('.js', ''))
                 }
             });
-            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${ownerCommands.join(', ')}**__For details and such use ${prefix}help and the command name.`)
+            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${ownerCommands.join(', ')}**__\nFor details and such use ${prefix}help and the command name.`)
         });
         return;
     }
