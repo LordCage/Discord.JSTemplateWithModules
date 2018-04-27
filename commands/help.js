@@ -8,17 +8,21 @@ const fs = require('fs');
 exports.run = (client, message, args) => {
 
     let command = args[0];
-    
+
     if (!command) {
         // Replace this if you want something else to show all the available commands
         let commands = new Array();
+        let ownerCommands = new Array();
+
         fs.readdir('./commands', (err, files) => {
             files.forEach(file => {
-                if (file.includes('.js')) {
+                if (file.endsWith('.js') && /* This will hide the ownerOnly commands from the help */ !require(`./${file}`).conf.ownerOnly) {
                     commands.push(file.replace('.js', ''))
+                } else if (file.endsWith('.js') && /* This will make it display ownerOnly commands */ require(`./${file}`).conf.ownerOnly) {
+                    ownerCommands.push(file.replace('.js', ''))
                 }
             });
-            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nFor details and such use ${prefix}help and the command name.`)
+            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${ownerCommands.join(', ')}**__For details and such use ${prefix}help and the command name.`)
         });
         return;
     }
@@ -50,7 +54,7 @@ exports.conf = {
     description: 'Displays information about a command.',
     aliases: [],
     usage: '<command-name>',
-    
+
     enabled: true,
     guildOnly: true,
     ownerOnly: false
