@@ -4,17 +4,6 @@ const client = new Discord.Client({ autoReconnect: true });
 const config = require('./config.json');
 const fs = require('fs');
 
-/*
-Discord Bots API
-Only use this if you want to transmit the guild size etc. to DiscordBotsList's API!
-const dbl = require("dblposter");
-
-const dblPoster = new dbl(`dbl api key`, client);
-dblPoster.bind();
-
-Discord Bots API
-*/
-
 require('./util/eventLoader')(client);
 
 const token = config.token;
