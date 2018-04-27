@@ -12,7 +12,7 @@ function Capitalize(word) {
 
 exports.run = async (client, message, args) => {
     
-    if (!args) return message.channel.send('What should I eval tho? :thinking:');
+    if (!args || args.length < 1) return message.channel.send('What should I eval tho? :thinking:');
 
     let msg = await message.channel.send('Processing...');
 
