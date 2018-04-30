@@ -1,7 +1,6 @@
-// We import discord.js so we can create a new Embed
-const Discord = require('discord.js');
-// Importing the prefix so we can use it bellow
-const { prefix } = require('../config.json');
+// We import Rich Embed so we can create a new Embed
+const { RichEmbed } = require('discord.js');
+
 // FS will read the commands folder for us.
 const fs = require('fs');
 
@@ -22,22 +21,24 @@ exports.run = (client, message, args) => {
                     ownerCommands.push(file.replace('.js', ''))
                 }
             });
-            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${ownerCommands.join(', ')}**__\nFor details and such use ${prefix}help and the command name.`)
+            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${ownerCommands.join(', ')}**__\nFor details and such use ${client.config.prefix}help and the command name.`)
         });
         return;
     }
 
     try {
-        let help = require(`./${command}.js`).conf;
+        let help = require(`./${command}`).help;
+        let conf = require(`./${command}`).conf;
 
         let name = help.name || 'No name provided.';
         let description = help.description || 'No description provided.';
-        let usage = help.usage || 'No usage provided.';
+        let usage = client.config.prefix + command + ' ' + help.usage || 'No usage provided.';
+        let cooldown = `${conf.cooldown} seconds.` || '3 seconds.';
         let aliases = help.aliases.length >= 1 ? help.aliases.join(', ') : 'No aliases provided.';
 
-        const embed = new Discord.RichEmbed()
+        const embed = new RichEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL)
-            .setDescription(`Name: **${name}**\nDescription: **${description}**\nAliases: **${aliases}**\nUsage: **${usage}**`)
+            .setDescription(`Name: **${name}**\nDescription: **${description}**\nAliases: **${aliases}**\nCooldown: **${cooldown}**\nUsage: **${usage}**`)
             .setFooter(`Help for command ${args[0]}`)
             .setColor(message.member.displayHexColor)
             .setTimestamp();
@@ -49,13 +50,16 @@ exports.run = (client, message, args) => {
 
 };
 
-exports.conf = {
+exports.help = {
     name: 'help',
     description: 'Displays information about a command.',
     aliases: [],
     usage: '<command-name>',
+}
 
+exports.conf = {
     enabled: true,
     guildOnly: true,
-    ownerOnly: false
+    ownerOnly: false,
+    cooldown: 3
 }

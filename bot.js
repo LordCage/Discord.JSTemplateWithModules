@@ -1,13 +1,3 @@
-const Discord = require("discord.js");
-const client = new Discord.Client({ autoReconnect: true });
-
-const config = require('./config.json');
-const fs = require('fs');
-
-require('./util/eventLoader')(client);
-
-const token = config.token;
-
 /* Uncomment this if you don't want any errors to show up in the console!
 process.on('uncaughtException', expection => {
     return;
@@ -20,23 +10,42 @@ process.on('unhandledRejection', rejection => {
 });
 */
 
-// Don't touch these! These set the commands and their aliases.
-client.commands = new Discord.Collection();
-client.aliases = new Discord.Collection();
+
+// Importing the client and Collection from D.JS + fs
+const { Client, Collection } = require('discord.js');
+const fs = require('fs');
+
+// We import the logger
+const logger = require('./util/logger');
+
+// Creating a new D.JS Client
+const client = new Client({ autoReconnect: true });
+
+// This will take care of all the events
+require('./util/eventLoader')(client);
+
+// Binding the config file to the client
+client.config = require('./config.json');
+
+// These "store" the commands and their aliases
+client.commands = new Collection();
+client.aliases = new Collection();
+
+// This will "store" the command cooldowns per user
+client.cooldowns = new Collection();
 
 fs.readdir('./commands/', (err, files) => {
-  if (err) console.error(err);
-  files.forEach(file => {
-    const cmd = require(`./commands/${file}`);
-    client.commands.set(cmd.conf.name, cmd);
-    cmd.conf.aliases.forEach(alias => {
-      client.aliases.set(alias, cmd.conf.name);
+    if (err) new logger().error(err);
+    files.forEach(file => {
+      const cmd = require(`./commands/${file}`);
+      client.commands.set(cmd.help.name, cmd);
+      cmd.help.aliases.forEach(alias => {
+        client.aliases.set(alias, cmd.help.name);
+      });
     });
   });
-});
 
-
-// Don't touch these! They're basically utility commands.
+// Don't touch these two, they are the "reload" and "load" functios.
 let reload = (message, cmd) => {
     delete require.cache[require.resolve('./commands/' + cmd)];
     try {
@@ -66,4 +75,5 @@ let reload = (message, cmd) => {
 exports.reload = reload;
 exports.load = load;
 
-client.login(token);
+// We log in with the token from the config file
+client.login(client.config.token);

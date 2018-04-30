@@ -4,13 +4,16 @@ exports.run = (client, message, args) => {
     main.reload(message, cmd);
 };
 
-exports.conf = {
+exports.help = {
     name: 'reload',
     description: 'Reload a command. Reserved to bot owner.',
     aliases: [],
     usage: '<command-name>',
-    
+}
+
+exports.conf = {
     enabled: true,
     guildOnly: false,
-    ownerOnly: true
+    ownerOnly: true,
+    cooldown: 0
 }

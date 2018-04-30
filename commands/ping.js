@@ -5,13 +5,16 @@ exports.run = (client, message, args) => {
         }).catch(err => message.channel.send(err))
 };
 
-exports.conf = {
+exports.help = {
     name: 'ping',
     description: 'Pong!',
     aliases: [],
     usage: '',
+}
 
+exports.conf = {
     enabled: true,
     guildOnly: false,
-    ownerOnly: false
+    ownerOnly: false,
+    cooldown: 10
 }

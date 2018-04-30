@@ -1,13 +1,32 @@
 {
-  "name": "djs-bot-template",
+  "name": "d.js-modules-rewrite",
   "version": "1.0.0",
-  "description": "A simple Discord.js bot template with module support.",
+  "description": "Discord.JS Bot template with Modules!",
   "main": "bot.js",
-  "author": "Kovacs Alex",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdemaster/Discord.JSTemplateWithModules.git"
+  },
+  "keywords": [
+    "discord.js",
+    "discord",
+    "bot",
+    "bot",
+    "modules"
+  ],
+  "author": "Kovacs Alex <alex@alexthemaster.net>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexdemaster/Discord.JSTemplateWithModules/issues"
+  },
+  "homepage": "https://github.com/alexdemaster/Discord.JSTemplateWithModules#readme",
   "dependencies": {
     "dblposter": "github:KingDGrizzle/dblposter",
-    "discord.js": "^11.3.0",
+    "discord.js": "^11.3.2",
+    "moment": "^2.22.1",
     "ms": "^2.1.1"
   }
 }

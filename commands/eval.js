@@ -31,13 +31,16 @@ exports.run = async (client, message, args) => {
     msg.edit(`**Output:** \`\`\`js\n${result}\`\`\`\n**Type:** \`\`\`ts\n${Capitalize(typeof result)}\`\`\`\n:stopwatch: ~${ms(new Date() - curDate, {long: true})}`)
 };
 
-exports.conf = {
+exports.help = {
     name: 'eval',
     description: 'Evaluates Javascript (JS) code.',
     aliases: ['js-eval'],
     usage: '<code>',
+};
 
+exports.conf = {
     enabled: true,
     guildOnly: false,
-    ownerOnly: true
+    ownerOnly: true,
+    cooldown: 0
 }

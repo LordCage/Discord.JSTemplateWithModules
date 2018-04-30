@@ -1,3 +1,5 @@
+const logger = require('../util/logger');
+
 module.exports = guild => {
-    console.log(`I was removed from the ${guild.name} server!`)
+    new logger().info(`I was removed from the ${guild.name} guild, which had ${guild.memberCount} members.`);
 };
