@@ -42,5 +42,5 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     ownerOnly: true,
-    cooldown: 0
+    cooldown: 1
 }
