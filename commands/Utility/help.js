@@ -13,8 +13,24 @@ exports.run = (client, message, args) => {
         let commands = new Array();
         let ownerCommands = new Array();
 
-        fs.readdir('./commands', (err, files) => {
+        fs.readdir('./commands/', (err, files) => {
+            if (err) new logger().error(err);
             files.forEach(file => {
+                fs.lstat(`./commands/${file}`, (err, stats) => {
+                    if (err) return;
+                    if (!stats.isDirectory()) return;
+                    else {
+                        fs.readdir(`./commands/${file}`, (err, files) => {
+                            files.forEach(file2 => {
+                                if (file.endsWith('.js') && /* This will hide the ownerOnly commands from the help */ !require(`./${file}`).conf.ownerOnly) {
+                                    commands.push(file.replace('.js', ''))
+                                } else if (file.endsWith('.js') && /* This will make it display ownerOnly commands */ require(`./${file}`).conf.ownerOnly) {
+                                    ownerCommands.push(file.replace('.js', ''))
+                                }
+                            });
+                        });
+                    }
+                });
                 if (file.endsWith('.js') && /* This will hide the ownerOnly commands from the help */ !require(`./${file}`).conf.ownerOnly) {
                     commands.push(file.replace('.js', ''))
                 } else if (file.endsWith('.js') && /* This will make it display ownerOnly commands */ require(`./${file}`).conf.ownerOnly) {
@@ -53,6 +69,7 @@ exports.run = (client, message, args) => {
 exports.help = {
     name: 'help',
     description: 'Displays information about a command.',
+    category: '',
     aliases: [],
     usage: '<command-name>',
 }
