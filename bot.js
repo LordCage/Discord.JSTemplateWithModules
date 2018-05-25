@@ -37,13 +37,30 @@ client.cooldowns = new Collection();
 fs.readdir('./commands/', (err, files) => {
     if (err) new logger().error(err);
     files.forEach(file => {
-      const cmd = require(`./commands/${file}`);
-      client.commands.set(cmd.help.name, cmd);
-      cmd.help.aliases.forEach(alias => {
-        client.aliases.set(alias, cmd.help.name);
-      });
+        fs.lstat(`./commands/${file}`, (err, stats) => {
+            if (err) return;
+            if (!stats.isDirectory()) return;
+            else {
+                fs.readdir(`./commands/${file}`, (err, files) => {
+                    files.forEach(file2 => {
+                        if (!file2.endsWith('.js')) return;
+                        const cmd = require(`./commands/${file}/${file2}`);
+                        client.commands.set(cmd.help.name, cmd);
+                        cmd.help.aliases.forEach(alias => {
+                            client.aliases.set(alias, cmd.help.name);
+                        });
+                    });
+                });
+            }
+        });
+        if (!file.endsWith('.js')) return;
+        const cmd = require(`./commands/${file}`);
+        client.commands.set(cmd.help.name, cmd);
+        cmd.help.aliases.forEach(alias => {
+            client.aliases.set(alias, cmd.help.name);
+        });
     });
-  });
+});
 
 // Don't touch these two, they are the "reload" and "load" functios.
 let reload = (message, cmd) => {
@@ -58,12 +75,12 @@ let reload = (message, cmd) => {
     message.channel.send(`Reloaded ${cmd} successfully!`).then(
         response => response.delete(1000).catch(error => console.log(error))
     ).catch(error => console.log(error));
-    },
+},
     load = (message, cmd) => {
-            try {
-                let cmdFile = require('./commands/' + cmd);
-            }
-             catch (error) {
+        try {
+            let cmdFile = require('./commands/' + cmd);
+        }
+        catch (error) {
             message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
                 response => response.delete(1000).catch(error => console.log(error))
             ).catch(error => console.log(error));
@@ -71,7 +88,7 @@ let reload = (message, cmd) => {
         message.channel.send(`Loaded ${cmd} successfully!`).then(
             response => response.delete(1000).catch(error => console.log(error))
         ).catch(error => console.log(error));
-    };  
+    };
 exports.reload = reload;
 exports.load = load;
 
