@@ -9,8 +9,13 @@ exports.run = (client, message, args) => {
     let command = args[0];
 
     if (!command) {
-        // You can do something here
-        message.channel.send(`Please mention a command you want help with!\nExample: \`${client.config.prefix}help ping\``)
+        let commands = new Array();
+        let owner = new Array();
+        client.commands.forEach(cmd => {
+            if (!cmd.conf.ownerOnly) commands.push(cmd.help.name)
+            else if (cmd.conf.ownerOnly) owner.push(cmd.help.name)
+        });
+        message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${owner.join(', ')}**__\nFor details and such use ${client.config.prefix}help and the command name.`);
         return;
     }
 
