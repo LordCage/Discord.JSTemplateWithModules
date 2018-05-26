@@ -1,4 +1,4 @@
-// We import Message Embed so we can create a new Embed
+// We import Rich Embed so we can create a new Embed
 const { RichEmbed } = require('discord.js');
 
 // FS will read the commands folder for us.
