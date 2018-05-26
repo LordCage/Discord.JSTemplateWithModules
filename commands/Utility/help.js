@@ -1,4 +1,4 @@
-// We import Rich Embed so we can create a new Embed
+// We import Message Embed so we can create a new Embed
 const { RichEmbed } = require('discord.js');
 
 // FS will read the commands folder for us.
@@ -9,42 +9,14 @@ exports.run = (client, message, args) => {
     let command = args[0];
 
     if (!command) {
-        // Replace this if you want something else to show all the available commands
-        let commands = new Array();
-        let ownerCommands = new Array();
-
-        fs.readdir('./commands/', (err, files) => {
-            if (err) new logger().error(err);
-            files.forEach(file => {
-                fs.lstat(`./commands/${file}`, (err, stats) => {
-                    if (err) return;
-                    if (!stats.isDirectory()) return;
-                    else {
-                        fs.readdir(`./commands/${file}`, (err, files) => {
-                            files.forEach(file2 => {
-                                if (file.endsWith('.js') && /* This will hide the ownerOnly commands from the help */ !require(`./${file}`).conf.ownerOnly) {
-                                    commands.push(file.replace('.js', ''))
-                                } else if (file.endsWith('.js') && /* This will make it display ownerOnly commands */ require(`./${file}`).conf.ownerOnly) {
-                                    ownerCommands.push(file.replace('.js', ''))
-                                }
-                            });
-                        });
-                    }
-                });
-                if (file.endsWith('.js') && /* This will hide the ownerOnly commands from the help */ !require(`./${file}`).conf.ownerOnly) {
-                    commands.push(file.replace('.js', ''))
-                } else if (file.endsWith('.js') && /* This will make it display ownerOnly commands */ require(`./${file}`).conf.ownerOnly) {
-                    ownerCommands.push(file.replace('.js', ''))
-                }
-            });
-            message.channel.send(`Here are all the currently available commands: __**${commands.join(', ')}**__\nOwner Commands: __**${ownerCommands.join(', ')}**__\nFor details and such use ${client.config.prefix}help and the command name.`)
-        });
+        // You can do something here
+        message.channel.send(`Please mention a command you want help with!\nExample: \`${client.config.prefix}help ping\``)
         return;
     }
 
     try {
-        let help = require(`./${command}`).help;
-        let conf = require(`./${command}`).conf;
+        let help = client.commands.get(command).help;
+        let conf = client.commands.get(command).conf;
 
         let name = help.name || 'No name provided.';
         let description = help.description || 'No description provided.';
