@@ -43,7 +43,8 @@ module.exports = message => {
         } else {
             const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
         
-            if (now < expirationTime) {
+            // If the cooldown didn't expire and the message author is not the bot owner
+            if (now < expirationTime && message.author.id !== client.config.owner) {
                 const timeLeft = (expirationTime - now) / 1000;
                 return message.channel.send(`${message.author}: You should chill down for ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
             }
