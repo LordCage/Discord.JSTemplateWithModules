@@ -27,6 +27,11 @@ exports.run = async (client, message, args) => {
     }
 
     if (!result || result.length < 1) return msg.edit('Something went wrong or the eval returned nothing.');
+    if (result.length > 1950) {
+        msg.delete();
+        message.channel.send(`Output was too long... sent the output as a file!\n**Type:** \`\`\`ts\n${capitalizer(typeof result)}\`\`\`\n:stopwatch: ~${ms(new Date() - curDate, { long: true })}`, { files: [{attachment: Buffer.from(result), name: 'output.txt'}]});
+        return;
+    }
 
     msg.edit(`**Output:** \`\`\`js\n${result}\`\`\`\n**Type:** \`\`\`ts\n${Capitalize(typeof result)}\`\`\`\n:stopwatch: ~${ms(new Date() - curDate, {long: true})}`)
 };
