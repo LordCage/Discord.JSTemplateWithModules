@@ -62,35 +62,5 @@ fs.readdir('./commands/', (err, files) => {
     });
 });
 
-// Don't touch these two, they are the "reload" and "load" functios.
-let reload = (message, cmd) => {
-    delete require.cache[require.resolve('./commands/' + cmd)];
-    try {
-        let cmdFile = require('./commands/' + cmd);
-    } catch (error) {
-        message.channel.send(`Problem loading ${cmd}: ${error}`).then(
-            response => response.delete(1000).catch(error => console.log(error))
-        ).catch(error => console.log(error))
-    }
-    message.channel.send(`Reloaded ${cmd} successfully!`).then(
-        response => response.delete(1000).catch(error => console.log(error))
-    ).catch(error => console.log(error));
-},
-    load = (message, cmd) => {
-        try {
-            let cmdFile = require('./commands/' + cmd);
-        }
-        catch (error) {
-            message.channel.send(`Problem loading ${cmd}:\n\`\`\`${error}\`\`\``).then(
-                response => response.delete(1000).catch(error => console.log(error))
-            ).catch(error => console.log(error));
-        }
-        message.channel.send(`Loaded ${cmd} successfully!`).then(
-            response => response.delete(1000).catch(error => console.log(error))
-        ).catch(error => console.log(error));
-    };
-exports.reload = reload;
-exports.load = load;
-
 // We log in with the token from the config file
 client.login(client.config.token);
